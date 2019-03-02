@@ -43,7 +43,7 @@ function renderIsLocked(username) {
   return (
     <Fragment>
       <Helmet>
-        <title>Profile | freeCodeCamp.org</title>
+        <title>{username} | freeCodeCamp.org</title>
       </Helmet>
       <Spacer size={2} />
       <Grid>
@@ -131,7 +131,7 @@ function Profile({ user, isSessionUser }) {
   return (
     <Fragment>
       <Helmet>
-        <title>Profile | freeCodeCamp.org</title>
+        <title>{username} | freeCodeCamp.org</title>
       </Helmet>
       <Spacer size={2} />
       <Grid>

@@ -64,19 +64,7 @@ tests:
 ## Solution
 <section id='solution'>
 
-```html
-<h2>CatPhotoApp</h2>
-<main>
-  <p>Click here to view more <a href="#">cat photos</a>.</p>
-
-  <a href="#"><img src="https://bit.ly/fcc-relaxing-cat" alt="A cute orange cat lying on its back."></a>
-
-  <ul>
-    <li>milk</li>
-    <li>mice</li>
-    <li>catnip</li>
-  </ul>
-</main>
+```js
+// solution required
 ```
-
 </section>

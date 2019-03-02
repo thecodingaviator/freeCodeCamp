@@ -4,7 +4,7 @@ title: Target the Same Element with Multiple jQuery Selectors
 ## Target the Same Element with Multiple jQuery Selectors
 
 ## Solution 
-```html
+```javascript
 <script>
   $(document).ready(function() {
     $("button").addClass("animated"); // Target elements with type "button" and add the class "animated" to them.

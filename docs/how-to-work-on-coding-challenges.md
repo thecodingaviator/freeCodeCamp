@@ -12,22 +12,14 @@ You can also clone the project and edit locally on your computer. For help with 
 
 ### Challenge Template
 
-Below is a template of what the challenge markdown files look like.
-
-**Notes:**
-
-1. In the below sections, examples of `{ext}` are:
-    * `html` - HTML/CSS
-    * `js` - JavaScript
-    * `jsx` - JSX
-
-2. For the `Tests` section below, `text` and `testString` should be valid YAML strings. `testString` can be a stringified function or expression possibly using Chai asserts.
+Here is a template of what the challenge markdown files look like.
 
 ````md
 ---
 id: Unique identifier (alphanumerical, MongoDB_id)
 title: Challenge Title
 challengeType: 0
+guideUrl: 'url of guide article'
 videoUrl: 'url of video explanation'
 ---
 
@@ -40,45 +32,40 @@ A Description of the challenge and what is required to pass
 <section id='instructions'>
 Instructions about what exactly needs to be done.
 </section>
-
 ## Tests
 <section id='tests'>
 
 ``` yml
-tests:
-  - text: Should return "foo"
-    testString: 'A stringified function possibly using Chai asserts'
+- text: Should return "foo".
+  testString: 'A stringified function using Chai asserts'
 ```
 
 </section>
 
-## Challenge Seed
-<section id='challengeSeed'>
+<div id='js-seed'>
 
-<div id='{ext}-seed'>
-
-```{ext}
-Code displayed in the editor by default.  
-
-This is a required section for the challenge.
+```js
+Code displayed in the editor by default.
 ```
 
 </div>
 
 ### Before Test
-<div id='{ext}-setup'>
+<div id='js-setup'>
 
-```{ext}
-Optional Test setup code.
+```js
+Test setup code.
 ```
 
 </div>
 
-### After Test
-<div id='{ext}-teardown'>
+</section>
 
-```{ext}
-Optional Test tear down code.
+### After Test
+<div id='js-teardown'>
+
+```js
+Test tear down code.
 ```
 
 </div>
@@ -88,8 +75,8 @@ Optional Test tear down code.
 ## Solution
 <section id='solution'>
 
-```{ext}
-// solution required
+```js
+Challenge solution code.
 ```
 
 </section>

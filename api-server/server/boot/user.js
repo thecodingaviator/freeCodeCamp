@@ -11,7 +11,6 @@ import {
 } from '../utils/publicUserProps';
 import { fixCompletedChallengeItem } from '../../common/utils';
 import { ifNoUser401, ifNoUserRedirectTo } from '../utils/middleware';
-import { removeCookies } from '../utils/getSetAccessToken';
 
 const log = debugFactory('fcc:boot:user');
 const sendNonUserToHome = ifNoUserRedirectTo(homeLocation);
@@ -152,9 +151,13 @@ function getUnlinkSocial(req, res, next) {
 
 function postResetProgress(req, res, next) {
   const { user } = req;
-  return user.updateAttributes(
+  user.updateAttributes(
     {
-      progressTimestamps: [Date.now()],
+      progressTimestamps: [
+        {
+          timestamp: Date.now()
+        }
+      ],
       currentChallengeId: '',
       isRespWebDesignCert: false,
       is2018DataVisCert: false,
@@ -173,7 +176,10 @@ function postResetProgress(req, res, next) {
       if (err) {
         return next(err);
       }
-      return res.sendStatus(200);
+      return res.status(200).json({
+        messageType: 'success',
+        message: 'You have successfully reset your progress'
+      });
     }
   );
 }
@@ -181,13 +187,21 @@ function postResetProgress(req, res, next) {
 function createPostDeleteAccount(app) {
   const { User } = app.models;
   return function postDeleteAccount(req, res, next) {
-    return User.destroyById(req.user.id, function(err) {
+    User.destroyById(req.user.id, function(err) {
       if (err) {
         return next(err);
       }
       req.logout();
-      removeCookies(req, res);
-      return res.sendStatus(200);
+      req.flash('success', 'You have successfully deleted your account.');
+      const config = {
+        signed: !!req.signedCookies,
+        domain: process.env.COOKIE_DOMAIN || 'localhost'
+      };
+      res.clearCookie('jwt_access_token', config);
+      res.clearCookie('access_token', config);
+      res.clearCookie('userId', config);
+      res.clearCookie('_csrf', config);
+      return res.status(200).end();
     });
   };
 }

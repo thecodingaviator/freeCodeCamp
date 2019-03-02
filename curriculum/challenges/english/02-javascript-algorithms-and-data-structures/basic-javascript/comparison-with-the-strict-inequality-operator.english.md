@@ -45,7 +45,12 @@ tests:
 ```js
 // Setup
 function testStrictNotEqual(val) {
-  if (val) { // Change this line
+  // Only Change Code Below this Line
+
+  if (val) {
+
+  // Only Change Code Above this Line
+
     return "Not Equal";
   }
   return "Equal";

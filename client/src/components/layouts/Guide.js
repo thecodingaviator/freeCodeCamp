@@ -1,24 +1,14 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { StaticQuery, graphql } from 'gatsby';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { createSelector } from 'reselect';
 import { Grid, Col, Row } from '@freecodecamp/react-bootstrap';
 
+import { NavigationContext } from '../../contexts/GuideNavigationContext';
 import SideNav from './components/guide/SideNav';
 import Spacer from '../helpers/Spacer';
 
 import 'prismjs/themes/prism.css';
 import './guide.css';
-
-import {
-  toggleExpandedState,
-  toggleDisplaySideNav,
-  displaySideNavSelector,
-  displayMenuSelector,
-  expandedStateSelector
-} from './components/guide/redux';
 
 const propTypes = {
   children: PropTypes.any,
@@ -36,27 +26,8 @@ const propTypes = {
       )
     })
   }),
-  displayMenu: PropTypes.bool,
-  displaySideNav: PropTypes.bool,
-  expandedState: PropTypes.object,
-  location: PropTypes.object,
-  toggleDisplaySideNav: PropTypes.func,
-  toggleExpandedState: PropTypes.func
+  location: PropTypes.object
 };
-
-const mapStateToProps = createSelector(
-  displaySideNavSelector,
-  displayMenuSelector,
-  expandedStateSelector,
-  (displaySideNav, displayMenu, expandedState) => ({
-    displaySideNav,
-    displayMenu,
-    expandedState
-  })
-);
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ toggleExpandedState, toggleDisplaySideNav }, dispatch);
 
 class GuideLayout extends React.Component {
   getContentRef = ref => (this.contentRef = ref);
@@ -66,19 +37,7 @@ class GuideLayout extends React.Component {
     this.contentRef.focus();
   };
 
-  componentWillUnmount() {
-    if (this.props.displayMenu) {
-      this.props.toggleDisplaySideNav();
-    }
-  }
-
   render() {
-    let {
-      displaySideNav,
-      expandedState,
-      toggleExpandedState,
-      toggleDisplaySideNav
-    } = this.props;
     return (
       <StaticQuery
         query={graphql`
@@ -101,40 +60,49 @@ class GuideLayout extends React.Component {
           const { edges } = data.allNavigationNode;
           const pages = edges.map(edge => edge.node);
           return (
-            <Fragment>
-              <Spacer size={1} />
-              <Grid className='guide-container'>
-                <Row>
-                  <Col
-                    md={4}
-                    smHidden={!displaySideNav}
-                    xsHidden={!displaySideNav}
-                  >
-                    <SideNav
-                      expandedState={expandedState}
-                      onNavigate={this.handleNavigation}
-                      pages={pages}
-                      toggleDisplaySideNav={toggleDisplaySideNav}
-                      toggleExpandedState={toggleExpandedState}
-                    />
-                  </Col>
-                  <Col
-                    md={8}
-                    smHidden={displaySideNav}
-                    xsHidden={displaySideNav}
-                  >
-                    <main
-                      className='content'
-                      id='main'
-                      ref={this.getContentRef}
-                      tabIndex='-1'
-                    >
-                      {this.props.children}
-                    </main>
-                  </Col>
-                </Row>
-              </Grid>
-            </Fragment>
+            <NavigationContext>
+              {({
+                toggleDisplaySideNav,
+                displaySideNav,
+                expandedState,
+                toggleExpandedState
+              }) => (
+                <Fragment>
+                  <Spacer size={1} />
+                  <Grid className='guide-container'>
+                    <Row>
+                      <Col
+                        md={4}
+                        smHidden={!displaySideNav}
+                        xsHidden={!displaySideNav}
+                      >
+                        <SideNav
+                          expandedState={expandedState}
+                          onNavigate={this.handleNavigation}
+                          pages={pages}
+                          toggleDisplaySideNav={toggleDisplaySideNav}
+                          toggleExpandedState={toggleExpandedState}
+                        />
+                      </Col>
+                      <Col
+                        md={8}
+                        smHidden={displaySideNav}
+                        xsHidden={displaySideNav}
+                      >
+                        <main
+                          className='content'
+                          id='main'
+                          ref={this.getContentRef}
+                          tabIndex='-1'
+                        >
+                          {this.props.children}
+                        </main>
+                      </Col>
+                    </Row>
+                  </Grid>
+                </Fragment>
+              )}
+            </NavigationContext>
           );
         }}
       />
@@ -145,7 +113,4 @@ class GuideLayout extends React.Component {
 GuideLayout.displayName = 'GuideLayout';
 GuideLayout.propTypes = propTypes;
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(GuideLayout);
+export default GuideLayout;

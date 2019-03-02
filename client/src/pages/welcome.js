@@ -70,7 +70,11 @@ function Welcome({
   activeDonations
 }) {
   if (pending && !complete) {
-    return <Loader fullScreen={true} />;
+    return (
+      <div className='loader-wrapper'>
+        <Loader />
+      </div>
+    );
   }
 
   if (!isSignedIn) {
@@ -85,7 +89,7 @@ function Welcome({
   return (
     <Fragment>
       <Helmet>
-        <title>Welcome | freeCodeCamp.org</title>
+        <title>Welcome {name ? name : 'Camper'} | freeCodeCamp.org</title>
       </Helmet>
       <main>
         <Grid className='text-center'>

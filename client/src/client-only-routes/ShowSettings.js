@@ -26,7 +26,6 @@ import Internet from '../components/settings/Internet';
 import Portfolio from '../components/settings/Portfolio';
 import Honesty from '../components/settings/Honesty';
 import Certification from '../components/settings/Certification';
-import DangerZone from '../components/settings/DangerZone';
 import RedirectHome from '../components/RedirectHome';
 
 const propTypes = {
@@ -166,7 +165,11 @@ function ShowSettings(props) {
   } = props;
 
   if (showLoading) {
-    return <Loader fullScreen={true} />;
+    return (
+      <div className='loader-wrapper'>
+        <Loader />
+      </div>
+    );
   }
 
   if (!showLoading && !isSignedIn) {
@@ -255,7 +258,6 @@ function ShowSettings(props) {
             verifyCert={verifyCert}
           />
           <Spacer />
-          <DangerZone />
         </main>
       </Grid>
     </Fragment>

@@ -4,12 +4,12 @@
   height: auto;
 }
 
-.sls {
+.sponsor-logos {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
-.sl {
+.sponsor-logo {
   max-height: 80px;
 }

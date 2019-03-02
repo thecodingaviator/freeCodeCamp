@@ -1,20 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Spinner from 'react-spinkit';
 
-import './loader.css';
-
-function Loader({ fullScreen }) {
-  return (
-    <div className={fullScreen ? 'full-screen-wrapper' : ''}>
-      <Spinner name='line-scale-pulse-out' />
-    </div>
-  );
+function Loader() {
+  return <Spinner name='ball-clip-rotate-multiple' />;
 }
 
 Loader.displayName = 'Loader';
-Loader.propTypes = {
-  fullScreen: PropTypes.bool
-};
 
 export default Loader;

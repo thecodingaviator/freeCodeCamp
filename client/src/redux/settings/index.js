@@ -1,7 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 
 import { createTypes, createAsyncTypes } from '../../utils/createTypes';
-import { createDangerZoneSaga } from './danger-zone-saga';
 import { createSettingsSagas } from './settings-sagas';
 import { createUpdateMyEmailSaga } from './update-email-saga';
 
@@ -29,17 +28,14 @@ export const types = createTypes(
     ...createAsyncTypes('updateMyEmail'),
     ...createAsyncTypes('updateUserFlag'),
     ...createAsyncTypes('submitProfileUI'),
-    ...createAsyncTypes('verifyCert'),
-    ...createAsyncTypes('resetProgress'),
-    ...createAsyncTypes('deleteAccount')
+    ...createAsyncTypes('verifyCert')
   ],
   ns
 );
 
 export const sagas = [
   ...createSettingsSagas(types),
-  ...createUpdateMyEmailSaga(types),
-  ...createDangerZoneSaga(types)
+  ...createUpdateMyEmailSaga(types)
 ];
 
 const checkForSuccessPayload = ({ type, payload }) =>
@@ -91,12 +87,6 @@ export const verifyCertComplete = createAction(
   checkForSuccessPayload
 );
 export const verifyCertError = createAction(types.verifyCertError);
-
-export const resetProgress = createAction(types.resetProgress);
-export const resetProgressError = createAction(types.resetProgressError);
-
-export const deleteAccount = createAction(types.deleteAccount);
-export const deleteAccountError = createAction(types.deleteAccountError);
 
 export const usernameValidationSelector = state => state[ns].usernameValidation;
 

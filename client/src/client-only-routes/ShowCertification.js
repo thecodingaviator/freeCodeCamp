@@ -18,6 +18,8 @@ import reallyWeirdErrorMessage from '../utils/reallyWeirdErrorMessage';
 import RedirectHome from '../components/RedirectHome';
 import { Loader } from '../components/helpers';
 
+import './show-certification.css';
+
 const propTypes = {
   cert: PropTypes.shape({
     username: PropTypes.string,
@@ -82,7 +84,11 @@ class ShowCertification extends Component {
     const { pending, complete, errored } = fetchState;
 
     if (pending) {
-      return <Loader fullScreen={true} />;
+      return (
+        <div className='loader-wrapper'>
+          <Loader />
+        </div>
+      );
     }
 
     if (!pending && errored) {

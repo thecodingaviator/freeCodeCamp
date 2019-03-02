@@ -4,8 +4,8 @@ localeTitle: Perímetro
 ---
 ## Perímetro
 
-El perimetro de una figura geometrica es la suma de sus lados. Es su contorno.
+Esto es un talón. [Ayuda a nuestra comunidad a expandirla](https://github.com/freecodecamp/guides/tree/master/src/pages/mathematics/perimeter/index.md) .
 
-Supongamos un rectangulo de lados de 7 cm y 15 cm. Su perimetro seria `7 + 7 + 15 + 15`, dando como resultado un perimetro de 44 cm.
+[Esta guía rápida de estilo ayudará a asegurar que su solicitud de extracción sea aceptada](https://github.com/freecodecamp/guides/blob/master/README.md) .
 
 #### Más información:

@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import headComponents from './src/head';
 import { createStore } from './src/redux/createStore';
 
+import GuideNavContextProvider from './src/contexts/GuideNavigationContext';
 import {
   CertificationLayout,
   DefaultLayout,
@@ -15,7 +16,11 @@ import {
 const store = createStore();
 
 export const wrapRootElement = ({ element }) => {
-  return <Provider store={store}>{element}</Provider>;
+  return (
+    <Provider store={store}>
+      <GuideNavContextProvider>{element}</GuideNavContextProvider>
+    </Provider>
+  );
 };
 
 wrapRootElement.propTypes = {
@@ -38,7 +43,7 @@ export const wrapPageElement = ({ element, props }) => {
   }
   if (/^\/guide(\/.*)*/.test(pathname)) {
     return (
-      <DefaultLayout onGuide={true}>
+      <DefaultLayout>
         <GuideLayout>{element}</GuideLayout>
       </DefaultLayout>
     );
